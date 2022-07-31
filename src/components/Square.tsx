@@ -1,11 +1,5 @@
-import React from 'react';
-
-export class Square extends React.Component {
-  render() {
-    return (
-      <button className="square">
-        {/* TODO */}
-      </button>
-    );
-  }
-}
+export const Square = () => (
+  <button className="square">
+    {/* TODO */}
+  </button>
+)
