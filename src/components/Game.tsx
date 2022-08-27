@@ -92,7 +92,10 @@ export const Game = () => {
         <ol>
           {history.map((_, move) => (
             <li key={move}>
-              <button onClick={() => jumpTo(move)}>
+              <button
+                className={stepNumber === move ? 'move-selected' : undefined}
+                onClick={() => jumpTo(move)}
+              >
                 {move !== 0 ? `Go to move #${move}` : 'Go to game start'}
                 {move !== 0 && ` (${getMoveLocation(move)})`}
               </button>
