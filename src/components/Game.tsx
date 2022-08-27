@@ -55,6 +55,27 @@ export const Game = () => {
     () => calculateWinner(current.squares), [calculateWinner, current.squares]
   );
 
+  const getMoveLocation = (step: number) => {
+    const previous = history[step - 1].squares;
+    const target = history[step].squares;
+    const movedIndex = previous.findIndex(
+      (value, index) => value !== target[index],
+    );
+    const locations = [
+      [1, 1],
+      [2, 1],
+      [3, 1],
+      [1, 2],
+      [2, 2],
+      [3, 2],
+      [1, 3],
+      [2, 3],
+      [3, 3],
+    ] as const;
+
+    return movedIndex === -1 ? null : locations[movedIndex];
+  };
+
   return (
     <div className="game">
       <div className="game-board">
@@ -75,6 +96,7 @@ export const Game = () => {
             <li key={move}>
               <button onClick={() => jumpTo(move)}>
                 {move !== 0 ? `Go to move #${move}` : 'Go to game start'}
+                {move !== 0 && ` (${getMoveLocation(move)})`}
               </button>
             </li>
           ))}
