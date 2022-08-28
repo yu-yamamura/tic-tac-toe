@@ -1,7 +1,9 @@
 import { useState, useCallback, useMemo } from 'react';
 import { BoardSquares } from '../types/BoardSquares';
 import { History } from '../types/History';
+import { SortOrder } from '../types/SortOrder';
 import { Board } from './Board';
+import ToggleSortOrderButton from './ToggleSortOrderButton';
 
 export const Game = () => {
   const [history, setHistory] = useState<History>([
@@ -9,6 +11,7 @@ export const Game = () => {
   ]);
   const [xIsNext, setXISNext] = useState(true);
   const [stepNumber, setStepNumber] = useState(0);
+  const [sortOrder, setSortOrder] = useState<SortOrder>('ascending');
 
   const calculateWinner = useCallback((squares: BoardSquares) => {
     const lines = [
@@ -89,18 +92,28 @@ export const Game = () => {
             ? `Winner: ${winner}`
             : `Next player: ${xIsNext ? 'X' : 'O'}`}
         </div>
+        <ToggleSortOrderButton
+          sortOrder={sortOrder}
+          onClick={
+            sortOrder === 'ascending'
+              ? () => setSortOrder('descending')
+              : () => setSortOrder('ascending')
+          }
+        />
         <ol>
-          {history.map((_, move) => (
-            <li key={move}>
-              <button
-                className={stepNumber === move ? 'move-selected' : undefined}
-                onClick={() => jumpTo(move)}
-              >
-                {move !== 0 ? `Go to move #${move}` : 'Go to game start'}
-                {move !== 0 && ` (${getMoveLocation(move)})`}
-              </button>
-            </li>
-          ))}
+          {Array.from(history.keys())
+            .sort((a, b) => (sortOrder === 'ascending' ? a - b : b - a))
+            .map((move) => (
+              <li key={move}>
+                <button
+                  className={stepNumber === move ? 'move-selected' : undefined}
+                  onClick={() => jumpTo(move)}
+                >
+                  {move !== 0 ? `Go to move #${move}` : 'Go to game start'}
+                  {move !== 0 && ` (${getMoveLocation(move)})`}
+                </button>
+              </li>
+            ))}
         </ol>
       </div>
     </div>

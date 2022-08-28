@@ -6,6 +6,7 @@ body {
 ol,
 ul {
   padding-left: 30px;
+  list-style-type: none;
 }
 
 .board-row:after {
@@ -52,4 +53,8 @@ ul {
 
 .move-selected {
   font-weight: bold;
+}
+
+.sort-order-icon {
+  vertical-align: middle;
 }
