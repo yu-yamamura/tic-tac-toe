@@ -3,6 +3,7 @@ import { BoardSquares } from '../types/BoardSquares';
 import { History } from '../types/History';
 import { SortOrder } from '../types/SortOrder';
 import { Board } from './Board';
+import { conditionsToWin } from '../contracts';
 import ToggleSortOrderButton from './ToggleSortOrderButton';
 
 export const Game = () => {
@@ -13,19 +14,9 @@ export const Game = () => {
   const [stepNumber, setStepNumber] = useState(0);
   const [sortOrder, setSortOrder] = useState<SortOrder>('ascending');
 
-  const calculateWinner = useCallback((squares: BoardSquares) => {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ] as const;
-    const lineCausedOfWin = lines.find((line) => {
-      const [a, b, c] = line;
+  const calculateWinnersLine = useCallback((squares: BoardSquares) => {
+    const lineCausedOfWin = conditionsToWin.find((wayOfWinning) => {
+      const [a, b, c] = wayOfWinning;
       return (
         squares[a] !== null &&
         squares[a] === squares[b] &&
@@ -33,8 +24,17 @@ export const Game = () => {
       );
     });
 
-    return lineCausedOfWin !== undefined ? squares[lineCausedOfWin[0]] : null;
+    return lineCausedOfWin ?? null;
   }, []);
+
+  const calculateWinner = useCallback(
+    (squares: BoardSquares) => {
+      const lineCausedOfWin = calculateWinnersLine(squares);
+
+      return lineCausedOfWin !== null ? squares[lineCausedOfWin[0]] : null;
+    },
+    [calculateWinnersLine],
+  );
 
   const handleClick = (i: number) => {
     if (winner !== null || current.squares[i] !== null) return;
@@ -84,7 +84,11 @@ export const Game = () => {
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current.squares} handleClick={handleClick} />
+        <Board
+          squares={current.squares}
+          handleClick={handleClick}
+          highlights={calculateWinnersLine(current.squares)}
+        />
       </div>
       <div className="game-info">
         <div>

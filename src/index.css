@@ -38,6 +38,10 @@ ul {
   outline: none;
 }
 
+.square.highlighted {
+  background-color: #fffd8c;
+}
+
 .kbd-navigation .square:focus {
   background: #ddd;
 }
