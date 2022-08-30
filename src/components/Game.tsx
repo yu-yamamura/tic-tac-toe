@@ -94,6 +94,8 @@ export const Game = () => {
         <div>
           {winner !== null
             ? `Winner: ${winner}`
+            : current.squares.every((square) => square !== null)
+            ? 'Result: Draw'
             : `Next player: ${xIsNext ? 'X' : 'O'}`}
         </div>
         <ToggleSortOrderButton
