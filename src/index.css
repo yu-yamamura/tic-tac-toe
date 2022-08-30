@@ -1,15 +1,17 @@
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
+  font: 14px 'Century Gothic', Futura, sans-serif;
   margin: 20px;
 }
 
-ol, ul {
+ol,
+ul {
   padding-left: 30px;
+  list-style-type: none;
 }
 
 .board-row:after {
   clear: both;
-  content: "";
+  content: '';
   display: table;
 }
 
@@ -36,6 +38,10 @@ ol, ul {
   outline: none;
 }
 
+.square.highlighted {
+  background-color: #fffd8c;
+}
+
 .kbd-navigation .square:focus {
   background: #ddd;
 }
@@ -47,4 +53,12 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+.move-selected {
+  font-weight: bold;
+}
+
+.sort-order-icon {
+  vertical-align: middle;
 }

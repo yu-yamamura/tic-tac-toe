@@ -3,18 +3,30 @@ import { BoardSquares } from '../types/BoardSquares';
 
 type Props = {
   squares: BoardSquares;
-  handleClick: (i: number) => void; 
+  handleClick: (i: number) => void;
+  highlights: [number, number, number] | null;
 };
 
-export const Board = ({ squares, handleClick }: Props) => {
-  const renderSquare = (i: number) =>
-    <Square key={i} value={squares[i]} onClick={() => handleClick(i)} />;
+export const Board = ({ squares, handleClick, highlights }: Props) => {
+  const renderSquare = (i: number, isHighlighted: boolean) => (
+    <Square
+      key={i}
+      value={squares[i]}
+      onClick={() => handleClick(i)}
+      isHighlighted={isHighlighted}
+    />
+  );
 
   return (
     <>
       {[0, 3, 6].map((addition) => (
         <div key={addition} className="board-row">
-          {[0, 1, 2].map((numberOfTopRow) => renderSquare(numberOfTopRow + addition))}
+          {[0, 1, 2].map((numberOfTopRow) =>
+            renderSquare(
+              numberOfTopRow + addition,
+              highlights?.includes(numberOfTopRow + addition) ?? false,
+            ),
+          )}
         </div>
       ))}
     </>
