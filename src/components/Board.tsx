@@ -1,5 +1,6 @@
 import { Square } from './Square';
 import { BoardSquares } from '../types/BoardSquares';
+import styles from './Board.module.css';
 
 type Props = {
   squares: BoardSquares;
@@ -20,7 +21,7 @@ export const Board = ({ squares, handleClick, highlights }: Props) => {
   return (
     <>
       {[0, 3, 6].map((addition) => (
-        <div key={addition} className="board-row">
+        <div key={addition} className={styles.boardRow}>
           {[0, 1, 2].map((numberOfTopRow) =>
             renderSquare(
               numberOfTopRow + addition,

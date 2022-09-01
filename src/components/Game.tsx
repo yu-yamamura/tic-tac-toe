@@ -5,6 +5,7 @@ import { SortOrder } from '../types/SortOrder';
 import { Board } from './Board';
 import { conditionsToWin } from '../contracts';
 import ToggleSortOrderButton from './ToggleSortOrderButton';
+import styles from './Game.module.css';
 
 export const Game = () => {
   const [history, setHistory] = useState<History>([
@@ -82,15 +83,15 @@ export const Game = () => {
   };
 
   return (
-    <div className="game">
-      <div className="game-board">
+    <div className={styles.game}>
+      <div>
         <Board
           squares={current.squares}
           handleClick={handleClick}
           highlights={calculateWinnersLine(current.squares)}
         />
       </div>
-      <div className="game-info">
+      <div className={styles.gameInfo}>
         <div>
           {winner !== null
             ? `Winner: ${winner}`
@@ -112,7 +113,9 @@ export const Game = () => {
             .map((move) => (
               <li key={move}>
                 <button
-                  className={stepNumber === move ? 'move-selected' : undefined}
+                  className={
+                    stepNumber === move ? styles.moveSelected : undefined
+                  }
                   onClick={() => jumpTo(move)}
                 >
                   {move !== 0 ? `Go to move #${move}` : 'Go to game start'}

@@ -1,4 +1,5 @@
 import { SortOrder } from '../types/SortOrder';
+import styles from './ToggleSortOrderButton.module.css';
 
 type Props = {
   sortOrder: SortOrder;
@@ -9,7 +10,7 @@ const ToggleSortOrderButton = ({ sortOrder, onClick }: Props) => (
   <>
     <label htmlFor="sort-order-icon">Sort:</label>
     <input
-      className="sort-order-icon"
+      className={styles.sortOrderIcon}
       type="image"
       id="sort-order-icon"
       alt="sort order"
