@@ -1,13 +1,15 @@
-import { Square } from './Square';
+import { useMemo } from 'react';
+import { calculateWinnersLine } from '../lib/game';
+import Square from './Square';
 import { BoardSquares } from '../types/BoardSquares';
+import styles from './Board.module.css';
 
 type Props = {
   squares: BoardSquares;
   handleClick: (i: number) => void;
-  highlights: [number, number, number] | null;
 };
 
-export const Board = ({ squares, handleClick, highlights }: Props) => {
+const Board = ({ squares, handleClick }: Props) => {
   const renderSquare = (i: number, isHighlighted: boolean) => (
     <Square
       key={i}
@@ -16,15 +18,16 @@ export const Board = ({ squares, handleClick, highlights }: Props) => {
       isHighlighted={isHighlighted}
     />
   );
+  const winnersLine = useMemo(() => calculateWinnersLine(squares), [squares]);
 
   return (
     <>
       {[0, 3, 6].map((addition) => (
-        <div key={addition} className="board-row">
+        <div key={addition} className={styles.boardRow}>
           {[0, 1, 2].map((numberOfTopRow) =>
             renderSquare(
               numberOfTopRow + addition,
-              highlights?.includes(numberOfTopRow + addition) ?? false,
+              winnersLine?.includes(numberOfTopRow + addition) ?? false,
             ),
           )}
         </div>
@@ -32,3 +35,5 @@ export const Board = ({ squares, handleClick, highlights }: Props) => {
     </>
   );
 };
+
+export default Board;

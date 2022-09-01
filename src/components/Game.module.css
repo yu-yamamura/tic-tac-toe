@@ -1,0 +1,12 @@
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.gameInfo {
+  margin-left: 20px;
+}
+
+.moveSelected {
+  font-weight: bold;
+}

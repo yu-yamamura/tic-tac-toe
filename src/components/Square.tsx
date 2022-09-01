@@ -1,5 +1,6 @@
 import React from 'react';
 import { SquareValue } from '../types/SquareValue';
+import styles from './Square.module.css';
 
 type Props = {
   value: SquareValue;
@@ -7,11 +8,13 @@ type Props = {
   isHighlighted: boolean;
 };
 
-export const Square = ({ value, onClick, isHighlighted }: Props) => (
+const Square = ({ value, onClick, isHighlighted }: Props) => (
   <button
-    className={`square ${isHighlighted && 'highlighted'}`}
+    className={`${styles.square} ${isHighlighted && styles.highlighted}`}
     onClick={onClick}
   >
     {value}
   </button>
 );
+
+export default Square;
