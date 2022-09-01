@@ -12,6 +12,7 @@ export const calculateWinnersLine = (squares: BoardSquares) => {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
   return (
     linesToWin.find((line) => {
       const [a, b, c] = line;
@@ -25,14 +26,14 @@ export const calculateWinnersLine = (squares: BoardSquares) => {
 };
 
 export const calculateWinner = (squares: BoardSquares) => {
-  const lineCausedOfWin = calculateWinnersLine(squares);
+  const winnersLine = calculateWinnersLine(squares);
 
-  return lineCausedOfWin !== null ? squares[lineCausedOfWin[0]] : null;
+  return winnersLine !== null ? squares[winnersLine[0]] : null;
 };
 
-export const calculateMoveLocation = (step: number, history: History) => {
-  const previousSquares = history[step - 1].squares;
-  const currentSquares = history[step].squares;
+export const calculateMoveLocation = (stepNumber: number, history: History) => {
+  const previousSquares = history[stepNumber - 1].squares;
+  const currentSquares = history[stepNumber].squares;
   const moveIndex = previousSquares.findIndex(
     (value, index) => value !== currentSquares[index],
   );
@@ -46,7 +47,7 @@ export const calculateMoveLocation = (step: number, history: History) => {
     [1, 3],
     [2, 3],
     [3, 3],
-  ] as const;
+  ];
 
   return moveIndex === -1 ? null : locations[moveIndex];
 };

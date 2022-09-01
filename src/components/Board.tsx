@@ -1,15 +1,15 @@
+import { useMemo } from 'react';
 import { calculateWinnersLine } from '../lib/game';
-import { Square } from './Square';
+import Square from './Square';
 import { BoardSquares } from '../types/BoardSquares';
 import styles from './Board.module.css';
-import { useMemo } from 'react';
 
 type Props = {
   squares: BoardSquares;
   handleClick: (i: number) => void;
 };
 
-export const Board = ({ squares, handleClick }: Props) => {
+const Board = ({ squares, handleClick }: Props) => {
   const renderSquare = (i: number, isHighlighted: boolean) => (
     <Square
       key={i}
@@ -35,3 +35,5 @@ export const Board = ({ squares, handleClick }: Props) => {
     </>
   );
 };
+
+export default Board;

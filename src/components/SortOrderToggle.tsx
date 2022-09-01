@@ -1,18 +1,18 @@
 import { SortOrder } from '../types/SortOrder';
-import styles from './ToggleSortOrderButton.module.css';
+import styles from './SortOrderToggle.module.css';
 
 type Props = {
   sortOrder: SortOrder;
   onClick: (e: React.MouseEvent<HTMLInputElement>) => void;
 };
 
-const ToggleSortOrderButton = ({ sortOrder, onClick }: Props) => (
+const SortOrderToggle = ({ sortOrder, onClick }: Props) => (
   <>
-    <label htmlFor="sort-order-icon">Sort:</label>
+    <label htmlFor="icon">Sort:</label>
     <input
-      className={styles.sortOrderIcon}
+      className={styles.icon}
       type="image"
-      id="sort-order-icon"
+      id="icon"
       alt="sort order"
       src={sortOrder === 'ascending' ? '/ascending.svg' : '/descending.svg'}
       onClick={onClick}
@@ -20,4 +20,4 @@ const ToggleSortOrderButton = ({ sortOrder, onClick }: Props) => (
   </>
 );
 
-export default ToggleSortOrderButton;
+export default SortOrderToggle;

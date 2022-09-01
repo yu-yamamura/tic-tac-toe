@@ -8,7 +8,7 @@ type Props = {
   isHighlighted: boolean;
 };
 
-export const Square = ({ value, onClick, isHighlighted }: Props) => (
+const Square = ({ value, onClick, isHighlighted }: Props) => (
   <button
     className={`${styles.square} ${isHighlighted && styles.highlighted}`}
     onClick={onClick}
@@ -16,3 +16,5 @@ export const Square = ({ value, onClick, isHighlighted }: Props) => (
     {value}
   </button>
 );
+
+export default Square;

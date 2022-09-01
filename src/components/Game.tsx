@@ -1,17 +1,17 @@
 import { useState, useMemo } from 'react';
+import { calculateMoveLocation, calculateWinner } from '../lib/game';
+import Board from './Board';
+import SortOrderToggle from './SortOrderToggle';
 import { BoardSquares } from '../types/BoardSquares';
 import { History } from '../types/History';
 import { SortOrder } from '../types/SortOrder';
-import { Board } from './Board';
-import ToggleSortOrderButton from './ToggleSortOrderButton';
 import styles from './Game.module.css';
-import { calculateMoveLocation, calculateWinner } from '../lib/game';
 
-export const Game = () => {
+const Game = () => {
   const [history, setHistory] = useState<History>([
     { squares: Array(9).fill(null) as BoardSquares },
   ]);
-  const [xIsNext, setXISNext] = useState(true);
+  const [xIsNext, setXIsNext] = useState(true);
   const [stepNumber, setStepNumber] = useState(0);
   const [sortOrder, setSortOrder] = useState<SortOrder>('ascending');
   const current = history[stepNumber];
@@ -28,13 +28,13 @@ export const Game = () => {
     const newHistory = history.slice(0, stepNumber + 1);
 
     setHistory(newHistory.concat([{ squares: newSquares }]));
-    setXISNext(!xIsNext);
+    setXIsNext(!xIsNext);
     setStepNumber(newHistory.length);
   };
 
   const jumpTo = (stepNumber: number) => {
     setStepNumber(stepNumber);
-    setXISNext(stepNumber % 2 === 0);
+    setXIsNext(stepNumber % 2 === 0);
   };
 
   return (
@@ -50,7 +50,7 @@ export const Game = () => {
             ? 'Result: Draw'
             : `Next player: ${xIsNext ? 'X' : 'O'}`}
         </div>
-        <ToggleSortOrderButton
+        <SortOrderToggle
           sortOrder={sortOrder}
           onClick={
             sortOrder === 'ascending'
@@ -79,3 +79,5 @@ export const Game = () => {
     </div>
   );
 };
+
+export default Game;
